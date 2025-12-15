@@ -1,22 +1,20 @@
+# Gerekli kütüphaneleri içe aktarıyorum; rastgelelik, sayısal işlemler ve grafik çizimi için.
 import random
 import numpy as np
 import matplotlib.pyplot as plt
 
+# Aynı sonuçları tekrar elde edebilmek için sabit seed değerleri belirliyorum.
 random.seed(42)
 np.random.seed(42)
 
 
+# Verilen CPU ve RAM değerlerine göre performans skorunu hesaplayan amaç fonksiyonu.
 def amac_fonksiyonu(cpu_cekirdek, ram_gb):
-    """
-    Performans skorunu hesaplar.
-    """
     return 5*cpu_cekirdek + 7*ram_gb - 0.1*(cpu_cekirdek**2) - 0.2*(ram_gb**2)
 
 
+# Bir çözümün tüm problem kısıtlarını sağlayıp sağlamadığını kontrol ediyorum.
 def kisit_saglanir_mi(cpu_cekirdek, ram_gb):
-    """
-    Tüm kısıtlar sağlanıyor mu?
-    """
     if cpu_cekirdek < 4:
         return False
     if not (2 <= cpu_cekirdek <= 12):
@@ -28,26 +26,21 @@ def kisit_saglanir_mi(cpu_cekirdek, ram_gb):
     return True
 
 
+# Kısıtları dikkate alarak rastgele bir başlangıç bireyi oluşturuyorum.
 def rastgele_birey_uret():
-    """
-    Kısıtlara uygun rastgele birey üretir.
-    """
     cpu = random.randint(4, 12)
     ram_ust = min(64, 512 // cpu)
     ram = random.randint(4, ram_ust)
     return [cpu, ram]
 
+
+# Belirlenen popülasyon boyutuna göre başlangıç popülasyonunu üretiyorum.
 def populasyon_uret(pop_boyutu):
-    """
-    Başlangıç popülasyonunu oluşturur.
-    """
     return [rastgele_birey_uret() for _ in range(pop_boyutu)]
 
 
+# Amaç fonksiyonuna ek olarak kısıt ihlallerini cezalandıran fitness fonksiyonunu tanımlıyorum.
 def fitness(birey):
-    """
-    Fitness = amaç fonksiyonu - ceza
-    """
     cpu, ram = birey
     skor = amac_fonksiyonu(cpu, ram)
     ceza = 0
@@ -64,28 +57,21 @@ def fitness(birey):
     return skor - ceza
 
 
+# Fitness değerlerine orantılı olasılıklarla birey seçmek için rulet tekerleği seçimi uyguluyorum.
 def rulet_tekerlegi_secimi(populasyon):
-    """
-    Rulet tekerleği seçimi uygular.
-    Fitness değeri yüksek olan bireylerin
-    seçilme olasılığı daha fazladır.
-    """
-
     fitness_degerleri = np.array([fitness(b) for b in populasyon])
 
-    # Negatif fitness problemini önlemek için kaydırma
+    # Negatif fitness ihtimaline karşı olasılık hesabı öncesi kaydırma yapıyorum.
     min_fitness = fitness_degerleri.min()
     if min_fitness < 0:
         fitness_degerleri = fitness_degerleri - min_fitness + 1
 
-    toplam_fitness = fitness_degerleri.sum()
-    olasiliklar = fitness_degerleri / toplam_fitness
-
-    # Olasılıklara göre 1 birey seç
+    olasiliklar = fitness_degerleri / fitness_degerleri.sum()
     secilen_index = np.random.choice(len(populasyon), p=olasiliklar)
     return populasyon[secilen_index]
 
 
+# Her gen için rastgele ebeveyn seçerek uniform çaprazlama işlemi gerçekleştiriyorum.
 def caprazlama(ebeveyn1, ebeveyn2, caprazlama_orani=0.9):
     if random.random() > caprazlama_orani:
         return ebeveyn1[:], ebeveyn2[:]
@@ -102,6 +88,7 @@ def caprazlama(ebeveyn1, ebeveyn2, caprazlama_orani=0.9):
     return cocuk1, cocuk2
 
 
+# Mutasyon veya çaprazlama sonrası bireyi tekrar geçerli sınırlar içine çekiyorum.
 def birey_onar(birey):
     cpu, ram = birey
 
@@ -118,6 +105,7 @@ def birey_onar(birey):
     return [cpu, ram]
 
 
+# Küçük rastgele değişimler yaparak popülasyonun çeşitliliğini artırıyorum.
 def mutasyon(birey, mutasyon_orani=0.2):
     cpu, ram = birey
 
@@ -130,6 +118,7 @@ def mutasyon(birey, mutasyon_orani=0.2):
     return birey_onar([cpu, ram])
 
 
+# Genetik algoritmanın tüm adımlarını bir araya getiren ana döngüyü çalıştırıyorum.
 def genetik_algoritma(pop_boyutu=40,
                       jenerasyon_sayisi=80,
                       caprazlama_orani=0.9,
@@ -178,7 +167,7 @@ def genetik_algoritma(pop_boyutu=40,
     return populasyon[0], en_iyi_fitnessler, ortalama_fitnessler
 
 
-# MAIN
+# Program doğrudan çalıştırıldığında genetik algoritmayı başlatıyorum.
 if __name__ == "__main__":
 
     en_iyi_birey, en_iyiler, ortalamalar = genetik_algoritma()
