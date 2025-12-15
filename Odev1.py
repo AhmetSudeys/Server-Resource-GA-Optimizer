@@ -1,11 +1,3 @@
-# ============================
-# Odev1
-# Genetik Algoritma ile
-# Web Sunucusu Ayarlari Optimizasyonu
-# Senaryo 8
-# Secim Mekanizmasi: Rulet Tekerlegi
-# ============================
-
 import random
 import numpy as np
 import matplotlib.pyplot as plt
@@ -13,18 +5,14 @@ import matplotlib.pyplot as plt
 random.seed(42)
 np.random.seed(42)
 
-# ----------------------------
-# Amaç fonksiyonu
-# ----------------------------
+
 def amac_fonksiyonu(cpu_cekirdek, ram_gb):
     """
     Performans skorunu hesaplar.
     """
     return 5*cpu_cekirdek + 7*ram_gb - 0.1*(cpu_cekirdek**2) - 0.2*(ram_gb**2)
 
-# ----------------------------
-# Kisit kontrolu
-# ----------------------------
+
 def kisit_saglanir_mi(cpu_cekirdek, ram_gb):
     """
     Tüm kısıtlar sağlanıyor mu?
@@ -39,9 +27,7 @@ def kisit_saglanir_mi(cpu_cekirdek, ram_gb):
         return False
     return True
 
-# ----------------------------
-# Rastgele birey üretimi
-# ----------------------------
+
 def rastgele_birey_uret():
     """
     Kısıtlara uygun rastgele birey üretir.
@@ -57,9 +43,7 @@ def populasyon_uret(pop_boyutu):
     """
     return [rastgele_birey_uret() for _ in range(pop_boyutu)]
 
-# ----------------------------
-# Fitness fonksiyonu
-# ----------------------------
+
 def fitness(birey):
     """
     Fitness = amaç fonksiyonu - ceza
@@ -79,9 +63,7 @@ def fitness(birey):
 
     return skor - ceza
 
-# ==================================================
-# RULET TEKERLEGI SECIMI
-# ==================================================
+
 def rulet_tekerlegi_secimi(populasyon):
     """
     Rulet tekerleği seçimi uygular.
@@ -103,9 +85,7 @@ def rulet_tekerlegi_secimi(populasyon):
     secilen_index = np.random.choice(len(populasyon), p=olasiliklar)
     return populasyon[secilen_index]
 
-# ----------------------------
-# Çaprazlama (Uniform Crossover)
-# ----------------------------
+
 def caprazlama(ebeveyn1, ebeveyn2, caprazlama_orani=0.9):
     if random.random() > caprazlama_orani:
         return ebeveyn1[:], ebeveyn2[:]
@@ -121,9 +101,7 @@ def caprazlama(ebeveyn1, ebeveyn2, caprazlama_orani=0.9):
 
     return cocuk1, cocuk2
 
-# ----------------------------
-# Onarım (Repair)
-# ----------------------------
+
 def birey_onar(birey):
     cpu, ram = birey
 
@@ -139,9 +117,7 @@ def birey_onar(birey):
 
     return [cpu, ram]
 
-# ----------------------------
-# Mutasyon
-# ----------------------------
+
 def mutasyon(birey, mutasyon_orani=0.2):
     cpu, ram = birey
 
@@ -153,9 +129,7 @@ def mutasyon(birey, mutasyon_orani=0.2):
 
     return birey_onar([cpu, ram])
 
-# ==================================================
-# GENETIK ALGORITMA ANA DONGU
-# ==================================================
+
 def genetik_algoritma(pop_boyutu=40,
                       jenerasyon_sayisi=80,
                       caprazlama_orani=0.9,
@@ -187,7 +161,6 @@ def genetik_algoritma(pop_boyutu=40,
             yeni_pop.append(en_iyi[:])
 
         while len(yeni_pop) < pop_boyutu:
-            # 🔴 RULET TEKERLEGI SECIMI
             p1 = rulet_tekerlegi_secimi(populasyon)
             p2 = rulet_tekerlegi_secimi(populasyon)
 
@@ -204,9 +177,8 @@ def genetik_algoritma(pop_boyutu=40,
     populasyon.sort(key=fitness, reverse=True)
     return populasyon[0], en_iyi_fitnessler, ortalama_fitnessler
 
-# ----------------------------
+
 # MAIN
-# ----------------------------
 if __name__ == "__main__":
 
     en_iyi_birey, en_iyiler, ortalamalar = genetik_algoritma()

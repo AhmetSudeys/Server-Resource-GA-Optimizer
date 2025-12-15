@@ -188,21 +188,4 @@ Ayrıca bulunan çözümün kısıt sağladığı kod içinde doğrulanır:
 - `cpu * ram <= 512`
 
 ---
-
-## 6. Nasıl Çalıştırılır?
-
-### 6.1 Notebook ile (Önerilen)
-
-1. `Odev1.ipynb` dosyasını açın.
-2. Hücreyi çalıştırın.
-3. Sonuçları ve yakınsama grafiğini doğrudan notebook üzerinde görüntüleyin.
-
-### 6.2 Python Script ile
-
-Gerekli kütüphaneler:
-- numpy
-- matplotlib
-
-Kurulum:
-```bash
-pip install numpy matplotlib
+Tanımlanan problem, Genetik Algoritma yaklaşımı kullanılarak başarıyla modellenmiş ve kısıtlar altında uygun bir çözüm elde edilmiştir. Bu doğrultuda proje başarıyla tamamlanmıştır.
