@@ -129,10 +129,8 @@ Bu işlem yalnızca olasılık hesabı içindir; “göreli kalite” korunur.
 
 İki ebeveynden iki çocuk üretmek için **Uniform Crossover** kullanılmıştır:
 - Her gen, %50 olasılıkla ebeveynlerden birinden seçilir.
+- Derste anlatılan yapıya uygun olarak, genlerin bir kısmı birinci bireyden kalan kısmı ise ikinci bireyden alınarak karma bir çaprazlama işlemi gerçekleştirilmiştir.
 
-Avantajı:
-- İki genli (CPU, RAM) kromozom yapısı için basit ve etkili bir karışımdır.
-- Sunumda anlatımı kolaydır.
 
 ### 3.6 Mutasyon (Mutation) ve Onarım (Repair)
 
@@ -196,7 +194,7 @@ Ayrıca bulunan çözümün kısıt sağladığı kod içinde doğrulanır:
 ### 6.1 Notebook ile (Önerilen)
 
 1. `Odev1.ipynb` dosyasını açın.
-2. Hücreleri sırasıyla çalıştırın.
+2. Hücreyi çalıştırın.
 3. Sonuçları ve yakınsama grafiğini doğrudan notebook üzerinde görüntüleyin.
 
 ### 6.2 Python Script ile
