@@ -1,17 +1,8 @@
-# yapay-zeka-proje-1
-Genetik Algoritma ile Web Sunucusu Ayarları Optimizasyonu
-
-# Odev1 – Genetik Algoritma ile Web Sunucusu Ayarları Optimizasyonu (Senaryo 8)
-
-Bu repoda iki farklı format birlikte sunulmuştur:
-- **`Odev1.py`**: Kodların tek dosyada toplandığı Python script sürümü. Dilerseniz algoritmayı buradan çalıştırarak kullanabilirsiniz.
-- **`Odev1.ipynb`**: Jupyter Notebook sürümü. Kod hücreleriyle birlikte **açıklamalar**, **çıktılar** ve **yakınsama grafiği** doğrudan aynı dosya üzerinde görüntülenebilir.
-
-> Değerlendirme sürecinde özellikle notebook dosyasının akışı ve açıklayıcılığı inceleneceği için `Odev1.ipynb` dosyası, projenin ana teslim formatıdır.
+# Genetik Algoritma ile Web Sunucusu Ayarları Optimizasyonu
 
 ---
 
-## 1. Problem Tanımı (Senaryo 8)
+## 1. Problem Tanımı 
 
 Bir yazılım şirketi, web sunucusu ayarlarını maksimum performans için optimize etmek istemektedir. Bu optimizasyon probleminde iki karar değişkeni vardır:
 
